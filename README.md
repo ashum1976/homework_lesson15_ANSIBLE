@@ -48,7 +48,7 @@
         ├── playbooks
         └── roles
 
-<detail>
+<details>
              <summary>ansible.cfg в директории проекта</summary>
 
     [defaults]
@@ -64,7 +64,7 @@
     # Always print diff when running ( same as always running with -D/--diff )
     always = yes
     # Set how many context lines to show in diff
-    context = 3 
-</detail>
+    context = 3
+</details>
 
 ##    2.1
