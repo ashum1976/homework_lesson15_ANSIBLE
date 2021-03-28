@@ -20,7 +20,7 @@
         3.10.0-862.2.3.el7.x86_64
         prod-nginx-02 | CHANGED | rc=0 >>
         3.10.0-862.2.3.el7.x86_64
- 
+
  2. TEst     
 
 
@@ -64,7 +64,7 @@
     # Always print diff when running ( same as always running with -D/--diff )
     always = yes
     # Set how many context lines to show in diff
-    context = 3
+    context = 3 
 </detail>
 
 ##    2.1
