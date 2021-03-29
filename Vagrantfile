@@ -1,46 +1,30 @@
 # -*- mode: ruby -*-
-# vim: set ft=ruby :
-home = ENV['HOME']
+# vi: set ft=ruby :
 
-MACHINES = {
-    'prod-nginx-01': {
-        box_name: 'centos/7',
-        ip_addr: '192.168.5.15',
-        net_card_name:  'net1'
-    },
-    'prod-nginx-02': {
-        box_name: 'centos/7',
-        ip_addr: '192.168.5.20',
-        net_card_name:  'net2'
-    },
-    'staging-nginx-01': {
-        box_name: 'centos/7',
-        ip_addr: '192.168.5.25',
-        net_card_name:  'net3'
-    },
-    'admin-host':{
-        box_name: 'centos/7',
-        ip_addr: '192.168.5.2',
-        net_card_name:  'net4'
-    }
-}
+Vagrant.configure(2) do |config|
+            #config.vm.box = "ashum1976/centos7_kernel_5.10"
+            config.vm.box = "centos/7"
 
-Vagrant.configure('2') do |config|
-    MACHINES.each do |boxname, boxconfig|
-        config.vm.define boxname do |box|
-            box.vm.box = boxconfig[:box_name]
-            box.vm.host_name = boxname.to_s
-            box.vm.network 'private_network', ip: boxconfig[:ip_addr], virtualbox__intnet: boxconfig[:net_card_name]
-            box.vm.provider :virtualbox do |vb|
-                vb.memory = 256
-                vb.cpus = 1
-                # vb.customize ['modifyvm', :id, '--memory', '256']
-                vb.name = boxname.to_s
+            config.vm.define "prod_server" do |prod|
+                #nfss.vm.synced_folder "./sync_data_server", "/home/vagrant/mnt"
+                prod.vm.network "private_network", ip: "192.168.50.10", virtualbox__intnet: "net1"
+                prod.vm.hostname = "prod-server"
+                config.vm.provider "virtualbox" do |v|
+                    v.memory = 256
+                    v.cpus = 1
+                end
+            #    nfss.vm.provision "shell", path: "nfss_script.sh"
             end
-          #   box.vm.provision 'shell', inline: <<-SHELL
-          # mkdir -p ~root/.ssh
-          # cp ~vagrant/.ssh/auth* ~root/.ssh
-          #   SHELL
-        end
-    end
+
+            config.vm.define "adm_comp" do |adm|
+                #nfsc.vm.synced_folder "./sync_data_client", "/home/vagrant/mnt"
+                adm.vm.network "private_network", ip: "192.168.50.11", virtualbox__intnet: "net1"
+                adm.vm.hostname = "admin-comp"
+                config.vm.provider "virtualbox" do |v|
+                    v.memory = 256
+                    v.cpus = 1
+                end
+              #  nfsc.vm.provision "shell", path: "nfsc_script.sh"
+            end
+
 end
