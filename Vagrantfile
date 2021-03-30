@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
+ENV["LC_ALL"] = "en_US.UTF-8"
 Vagrant.configure(2) do |config|
             #config.vm.box = "ashum1976/centos7_kernel_5.10"
             config.vm.box = "centos/7"

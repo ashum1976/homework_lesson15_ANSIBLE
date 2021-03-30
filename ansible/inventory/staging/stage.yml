@@ -5,11 +5,20 @@ all:
 
     vars:
         ansible_user:   'vagrant'
+<<<<<<< HEAD
         ansible_host: 127.0.0.1
+=======
+>>>>>>> 8eaedc69ceda4357ba5fcbb9adba9def1b032a5a
 
 
 dev:
     hosts:
         prod-comp:
+<<<<<<< HEAD
             ansible_port: 2222
             ansible_private_key_file: .vagrant/machines/prod_server/virtualbox/private_key
+=======
+            ansible_host: 192.168.50.11
+            ansible_port: 22
+            ansible_private_key_file: ./private_key
+>>>>>>> 8eaedc69ceda4357ba5fcbb9adba9def1b032a5a

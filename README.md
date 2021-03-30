@@ -22,6 +22,7 @@
 Создадим структуру  для работы ansible, где расположим файлы с переменными и параметрами для подключения:
 
 
+<<<<<<< HEAD
         ├── files
         ├── inventory             <----- Каталог для определения переменных
         │   ├── group_vars        <----- Каталог для хранения групповых переменных применяются к группе, по имени файла ( prod.yml - группа)
@@ -39,6 +40,25 @@
         │   └── nginx.yml
         ├── roles                 <----- Каталог для хранения roles
         └── templates
+=======
+├── files
+├── inventory             <----- Каталог для определения переменных
+│   ├── group_vars        <----- Каталог для хранения групповых переменных
+│   │   ├── dev.yml
+│   │   └── prod.yml
+│   ├── host_vars
+│   │   ├── prod-nginx-01.yml
+│   │   └── prod-nginx-02.yml
+│   ├── prod
+│   │   └── prod.yml
+│   └── staging
+│       └── stage.yml
+├── playbooks             <----- Каталог для хранения playbooks
+│   ├── nginx.retry
+│   └── nginx.yml
+├── roles                 <----- Каталог для хранения roles
+└── templates
+>>>>>>> 8eaedc69ceda4357ba5fcbb9adba9def1b032a5a
 
 
         ├── ansible.cfg    <---- Конфигурационный файл ansible, в котором определим общие значения переменных для текущего проекта. Так же можно определить значения переменных и в файле /etc/ansible/ansible.config      
@@ -132,6 +152,7 @@ ___
 
 2.  $ ansible-inventory --list        <---- Отображение и проверка inventory в виде структуры.
 
+<<<<<<< HEAD
             {
                 "_meta": {
                     "hostvars": {
@@ -151,6 +172,27 @@ ___
                         .......
                         .......
                     }
+=======
+      {
+          "_meta": {
+              "hostvars": {
+                  "admin-comp": {
+                      "ansible_host": "192.168.50.10",
+                      "ansible_port": 22,
+                      "ansible_private_key_file": "/installs/Study/OTUS/lesson_15_ANSIBLE_2/homework_lesson15_ANSIBLE_staging/.vagrant/machines/prod-nginx-01/virtualbox/private_key",
+                      "ansible_user": "vagrant",
+                      "test_var": "test_var_group"
+                  },
+                  "prod-comp": {
+                      "ansible_host": "192.168.50.11",
+                      "ansible_port": 22,
+                      "ansible_private_key_file": "./private_key",
+                      "ansible_user": "vagrant"
+                   .......
+                   .......
+                   .......
+            }
+>>>>>>> 8eaedc69ceda4357ba5fcbb9adba9def1b032a5a
 </details>
 
 ___
