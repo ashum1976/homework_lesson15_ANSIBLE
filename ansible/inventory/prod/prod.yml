@@ -3,7 +3,6 @@ all:
       prod:
     vars:
       ansible_user: 'vagrant'
-<<<<<<< HEAD
       ansible_host: 127.0.0.1
 
 prod:
@@ -12,12 +11,3 @@ prod:
         #ansible_host: 192.168.50.10
         ansible_port: 2200
         ansible_private_key_file: .vagrant/machines/adm_comp/virtualbox/private_key
-=======
-
-prod:
-    hosts:
-      admin-comp:
-        ansible_host: 192.168.50.10
-        ansible_port: 22
-        ansible_private_key_file: /installs/Study/OTUS/lesson_15_ANSIBLE_2/homework_lesson15_ANSIBLE_staging/.vagrant/machines/prod-nginx-01/virtualbox/private_key
->>>>>>> 8eaedc69ceda4357ba5fcbb9adba9def1b032a5a
