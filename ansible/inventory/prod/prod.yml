@@ -1,0 +1,13 @@
+all:
+    children:
+      prod:
+    vars:
+      ansible_user: 'vagrant'
+      ansible_host: 127.0.0.1
+
+prod:
+    hosts:
+      adm_comp:
+        #ansible_host: 192.168.50.10
+        ansible_port: 2200
+        ansible_private_key_file: .vagrant/machines/adm_comp/virtualbox/private_key

@@ -19,11 +19,30 @@
 
 Структура каталога  проекта, для запуска ansible:
 
-В начальной папке проектов /installs/GitHub/ansible/ создаём новую папку для нашего проекта repo_1_nginx
-со следующей структурой:
+Создадим структуру  для работы ansible, где расположим файлы с переменными и параметрами для подключения:
+
+
+        ├── files
+        ├── inventory             <----- Каталог для определения переменных
+        │   ├── group_vars        <----- Каталог для хранения групповых переменных применяются к группе, по имени файла ( prod.yml - группа)
+        │   │   ├── dev.yml
+        │   │   └── prod.yml
+        │   ├── host_vars           <----- Каталог для хранения, переменных применяемых к хостам, по имени файла (prod-nginx-01.yml - хост )
+        │   │   ├── prod-server.yml
+        │   │   └──
+        │   ├── prod
+        │   │   └── prod.yml
+        │   └── staging
+        │       └── stage.yml
+        ├── playbooks             <----- Каталог для хранения playbooks
+        │   ├── nginx.retry
+        │   └── nginx.yml
+        ├── roles                 <----- Каталог для хранения roles
+        └── templates
+
 
         ├── ansible.cfg    <---- Конфигурационный файл ansible, в котором определим общие значения переменных для текущего проекта. Так же можно определить значения переменных и в файле /etc/ansible/ansible.config      
-        ├── inventory      <----- Каталог для определения переменных
+        ├── inventory      
         │   ├── prod
         │   │   ├── all.yml
         │   │   ├── group_vars
@@ -36,13 +55,16 @@
         │       │   └── dev.yml
         │       └── host_vars
         │           └── prod-nginx-02.yml
-        ├── playbooks      <----- Каталог для хранения playbooks
-        └── roles          <----- Каталог для хранения roles
+        ├── playbooks      
+        └── roles          
 
 <details>
              <summary>ansible.cfg в директории проекта</summary>
 
+Файл расположим в корневой папке, где находится и Vagrantfile
+
     [defaults]
+    inventory = ansible/inventory
     transport = smart
     roles_path = ./roles
     remote_user = vagrant
@@ -59,16 +81,23 @@
 
 </details>
 
-- $ ansible-inventory --graph     <---- Отображение и проверка струтуры inventory, переменные.
+- $ ansible-inventory --graph     <---- Отображение и проверка струтуры inventory.
 
-        all:
-        |--@dev:
-        |  |--staging-nginx-01
-        |--@prod:
-        |  |--prod-nginx-01
-        |  |--prod-nginx-02
-        |--@test:
-        |--@ungrouped:
+      @all:
+      |--@dev:
+      |  |--prod-comp
+      |--@prod:
+      |  |--admin-comp
+      |--@test:
+      |--@ungrouped:
+
+
+
+Скопируем ssh ключ с prod_server сервера, после первого запуска vagrant-a, на admin-comp для дальнейшего управленя через ansible
+prod_server:
+
+scp -v -i ./private_key -P 2200 -o StrictHostKeyChecking=no  .vagrant/machines/prod_server/virtualbox/private_key  vagrant@127.0.0.1 /vagrant
+
 
 ##         
 
@@ -86,15 +115,14 @@
 
 1.   $ ansible-inventory --graph     <---- Отображение и проверка струтуры inventory для всех параметров в графическом виде .
 
-
-            all:
+            @all:
             |--@dev:
-            |  |--staging-nginx-01
+            |  |--prod-comp
             |--@prod:
-            |  |--prod-nginx-01
-            |  |--prod-nginx-02
+            |  |--admin-comp
             |--@test:
             |--@ungrouped:
+
 </details>
 
 ___
@@ -104,23 +132,25 @@ ___
 
 2.  $ ansible-inventory --list        <---- Отображение и проверка inventory в виде структуры.
 
-        {
-            "_meta": {
-                "hostvars": {
-                    "prod-nginx-01": {
-                        "ansible_host": "127.0.0.1",
-                        "ansible_port": 2222,
-                        "ansible_private_key_file": "/installs/Study/OTUS/lesson_15_ANSIBLE_2/homework_lesson15_ANSIBLE_staging/.vagrant/machines/prod-nginx-01/virtualbox/private_key",
-                        "ansible_user": "vagrant"
-                    },
-                    "prod-nginx-02": {
-                        "ansible_host": "127.0.0.1",
-                        "ansible_port": 2200,
-                        "ansible_private_key_file": "/installs/Study/OTUS/lesson_15_ANSIBLE_2/homework_lesson15_ANSIBLE_staging/.vagrant/machines/prod-nginx-02/virtualbox/private_key",
-                   .......
-                   .......
-                   .......
-            }
+            {
+                "_meta": {
+                    "hostvars": {
+                        "admin-comp": {
+                            "ansible_host": "192.168.50.10",
+                            "ansible_port": 22,
+                            "ansible_private_key_file": "/installs/Study/OTUS/lesson_15_ANSIBLE_2/homework_lesson15_ANSIBLE_staging/.vagrant/machines/prod-nginx-01/virtualbox/private_key",
+                            "ansible_user": "vagrant",
+                            "test_var": "test_var_group"
+                        },
+                        "prod-comp": {
+                            "ansible_host": "192.168.50.11",
+                            "ansible_port": 22,
+                            "ansible_private_key_file": "./private_key",
+                            "ansible_user": "vagrant"
+                        .......
+                        .......
+                        .......
+                    }
 </details>
 
 ___
@@ -150,7 +180,7 @@ ___
 
 > Пример запуска в ansible команды на удалённых компах, с использованием модуля -m command  в однострочном варианте (Ad-hoc):
 
-*  [andrey@SrvHomeAMD repo_1_nginx]$ ansible all -i inventory/prod/ -m command -a "uname -r"
+*  [andrey@SrvHomeAMD repo_1_nginx]$ ansible all -i inventory/ansible/ -m command -a "uname -r"
 
         prod-nginx-01 | CHANGED | rc=0 >>
         3.10.0-862.2.3.el7.x86_64
