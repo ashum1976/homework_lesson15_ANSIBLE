@@ -1,4 +1,5 @@
-{{ ansible_managed }}
+#{{ ansible_managed }}
+#
 user {{ nginx_user }};
 worker_processes {{ ansible_processor_vcpus }};
 error_log /var/log/nginx/error.log;
@@ -40,6 +41,7 @@ http {
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
+
         location / {
         }
 
@@ -51,3 +53,4 @@ http {
         location = /50x.html {
         }
     }
+}
