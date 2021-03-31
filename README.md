@@ -22,7 +22,7 @@ ___
 **На компьютере должен быть установлен ansible !!!!**
 **При запуске создаётся приватная сеть с доступом с хостовой машины 192.168.50.0/24**
 
-**_Для запуска задачи, необходимо выполнить "start.sh" в рабочем каталоге_**
+**_Для запуска задачи, необходимо выполнить "vagrant up" в рабочем каталоге_**
 
 **_Проверка, что всё отработало, успешное выполнение команды:_**
 
@@ -256,10 +256,22 @@ ___
 
 
 
-Скопируем ssh ключ с prod_server сервера, после первого запуска vagrant-a, на admin-comp для дальнейшего управленя через ansible
-prod_server:
+**Для успешного запуска с локального хоста vagrant  стенда, необходимо правильно определить параметры в секции  prod.vm.provision**
 
-scp -v -i ./private_key -P 2200 -o StrictHostKeyChecking=no  .vagrant/machines/prod_server/virtualbox/private_key  vagrant@127.0.0.1 /vagrant
+> Параметры подключениянаходятся в каталоге (относительно папки проекта) "ansible/inventory". В файле прописана группа dev, в ней и описываются хосты.
+>
+
+Секция provision Vagrantfile:
+
+        prod.vm.provision "ansible" do |ansible|
+                ansible.verbose = "vv"
+                ansible.limit = "all"       <---- Если используем группы, то указываем это значение "all", по умолчанию vagrant запускает со значением имени виртуальной машины "-limit=prod_server"
+                 
+                 ansible.inventory_path = "./ansible/inventory/"  <---- Указать папку с нашим inventory, по умолчанию vagrant указывает свою локальную папку "--inventory-file=/полный путь от корня бла/ бла/ бла /.vagrant/provisioners/ansible/inventory"
+                 
+                 ansible.playbook = "prod-server.yml"
+                 end
+
 
 
 ##         
