@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
                 end
                 prod.vm.provision "ansible" do |ansible|
                   ansible.verbose = "vv"
-                  ansible.playbook = "pro-server.yml"
+                  ansible.playbook = "prod-server.yml"
                 end
 
             end

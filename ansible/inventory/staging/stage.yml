@@ -10,6 +10,6 @@ all:
 
 dev:
     hosts:
-        prod-comp:
+        prod-server:
             ansible_port: 2222
             ansible_private_key_file: .vagrant/machines/prod_server/virtualbox/private_key

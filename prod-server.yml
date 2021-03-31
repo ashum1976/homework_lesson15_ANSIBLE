@@ -1,4 +1,4 @@
-- name: 'Install nginx on hosts prod-nginx-01 prod-nginx-02'
+- name: 'Install nginx on hosts "prod-server"'
   hosts: dev
   become: True
   vars:
@@ -10,7 +10,7 @@
   tasks:
     # - name: Test prod_server
     #   ping:
-    - name: 'Install repository'
+    - name: Install repository
       yum:
           name: epel-release
           state: present
@@ -40,6 +40,7 @@
           owner: root
           group: root
       register: nginx_config_copy
+      tags: cp_nginx_cfg
 
     - name: View nginx_config_copy all value
       debug:
