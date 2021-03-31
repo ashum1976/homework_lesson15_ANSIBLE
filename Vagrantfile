@@ -12,6 +12,8 @@ Vagrant.configure(2) do |config|
                 end
                 prod.vm.provision "ansible" do |ansible|
                   ansible.verbose = "vv"
+                  ansible.limit = "all"
+                  ansible.inventory_path = "./ansible/inventory/"
                   ansible.playbook = "prod-server.yml"
                 end
 
