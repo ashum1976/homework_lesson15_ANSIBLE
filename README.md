@@ -30,7 +30,9 @@ ___
 
 <details>
 
-                        <summary>Вывод успешного выполнения команды curl</summary>  
+        <summary>Вывод успешного выполнения команды curl</summary>  
+
+
                         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
             <html>
             <head>
