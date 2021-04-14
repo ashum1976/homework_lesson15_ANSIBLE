@@ -1,0 +1,5 @@
+all:
+  hosts:
+    nix64AMD:
+      ansible_host: 172.16.3.1
+      ansible_port: 3444

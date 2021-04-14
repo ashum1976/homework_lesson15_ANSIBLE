@@ -223,7 +223,6 @@ ___
 
 <details>
              <summary>ansible.cfg в директории проекта</summary>
-
 Файл расположим в корневой папке, где находится и Vagrantfile
 
     [defaults]
@@ -258,31 +257,208 @@ ___
 
 **Для успешного запуска с локального хоста vagrant  стенда, необходимо правильно определить параметры в секции  prod.vm.provision**
 
-> Параметры подключениянаходятся в каталоге (относительно папки проекта) "ansible/inventory". В файле прописана группа dev, в ней и описываются хосты.
+> параметры подключениянаходятся в каталоге (относительно папки проекта) "ansible/inventory". В файле прописана группа dev, в ней и описываются хосты.
 >
 
 Секция provision Vagrantfile:
 
         prod.vm.provision "ansible" do |ansible|
-                ansible.verbose = "vv"
-                ansible.limit = "all"       <---- Если используем группы, то указываем это значение "all", по умолчанию vagrant запускает со значением имени виртуальной машины "-limit=prod_server"
-                 
-                 ansible.inventory_path = "./ansible/inventory/"  <---- Указать папку с нашим inventory, по умолчанию vagrant указывает свою локальную папку "--inventory-file=/полный путь от корня бла/ бла/ бла /.vagrant/provisioners/ansible/inventory"
-                 
-                 ansible.playbook = "prod-server.yml"
-                 end
+                          ansible.verbose = "vv"
+                          ansible.limit = "all"    <---- Если используем группы, то указываем это значение "all", по умолчанию vagrant запускает со значением имени виртуальной машины "-limit=prod_server"
+                          ansible.inventory_path = "./ansible/inventory/"  <---- Указать папку с нашим inventory, по умолчанию vagrant указывает свою локальную папку "--inventory-file=/полный путь от корня бла/ бла/ бла /.vagrant/provisioners/ansible/inventory"
+                          ansible.playbook = "prod-server.yml"
+                        end
 
+Скопируем ssh ключ с prod_server сервера, после первого запуска vagrant-a, на admin-comp для дальнейшего управленя через ansible
+prod_server:
+
+scp -v -i ./private_key -P 2200 -o StrictHostKeyChecking=no  .vagrant/machines/prod_server/virtualbox/private_key  vagrant@127.0.0.1 /vagrant
 
 
 ##         
 
 #       1.2 Общая теория, примеры, полезности.
 
+##    1.2.1 Ansible.cfg
+
+Файл в ini формате в котором хранятся предопределенные параметры, например:
+
+        inventory = ansible/inventory
+        transport = smart
+        roles_path = ./roles
+        remote_user = vagrant
+        host_key_checking = False
+        log_path = ./ansible.log
+
+##    1.2.2 Ansible. Inventory
+
+Группировка и разделение хостов
+
+- Вложенные группы
+- Inventory файлов может быть несколько
+- Динамический Inventory
+- Позволяет переопределить параметры указанные в ansible.cfg
+- Групповые переменные и переменные хостов
+
+Пример структуры каталога Inventory:
+<details>
+             <summary>Структура каталога Invrntory</summary>
+
+          ├── files
+          ├── inventory             <---- Каталог для определения переменных
+          │   ├── group_vars    <---- Каталог для хранения групповых переменных применяются к группе, по имени файла ( prod.yml - группа)
+          │   │   ├── dev.yml
+          │   │   └── prod.yml
+          │   ├── host_vars        <----- Каталог для хранения, переменных применяемых к хостам, по имени файл (adm_comp.yml )
+          │   │   └── adm_comp.yml
+          │   ├── prod
+          │   │   └── prod.yml
+          │   └── staging
+          │       └── stage.yml
+          ├── playbooks             <----- Каталог для хранения playbooks
+          │   └── prod-server.yml
+          ├── roles                 <----- Каталог для хранения roles
+          └── templates
+              └── nginx.conf.j2
+
+</details>
+
+Формат файла в Inventory(YAML)
+
+<details>
+             <summary>YAML формат файлов в Inventory  </summary>
+
+          all:
+            children:
+              prod:
+          #    dev:
+            vars:
+              ansible_user: 'vagrant'
+              ansible_host: 127.0.0.1
+
+          prod:
+          #dev:
+            hosts:
+              adm_comp:
+                #ansible_host: 192.168.50.10
+                ansible_port: 2200
+                ansible_private_key_file: .vagrant/machines/adm_comp/virtualbox/private_key
+
+</details>
+
+##      1.2.3 Ansible. Модули
+
+**ОСНОВА ДЛЯ ВЫПОЛНЕНИЯ ЗАДАЧ В ANSIBLE !!!!**
+
+Библиотеки для выполнения и отслеживания состояния задач. По сути код который формирует другой код который выполняется на удаленной
+машине:
+- Типовые операции ОС
+- Управление ресурсами
+- Все остальное
+
+Пример использования модуля:
+
+  yum:  
+    name: epel-release  <---- _**параметр модуля (в данном случае имя пакета для установки)**_
+
+
+[СПИСОК МОДУЛЕЙ ИЗ ДОКУМЕНТАЦИИ](https://docs.ansible.com/ansible/latest/modules/modules_by_category.html)
+
+##      1.2.4 Ansible. Переменные
+
+Могут использоваться почти везде, в пределах инфраструктурного
+репозитория. Переменные можно задавать по ходу выполнения play (set_facts, register)
+
+- Для переиспользования и определения отличий
+- Дополняют циклы и операторы условиями
+
+YAML поддерживает словари и списки.
+
+        -name: Test
+         gather_facts: True
+         hosts:
+            - dev
+            - prod
+         vars:                  <--- переменные
+            nginx_user: nginx     
+            nginx_port: 8080      
+            ngins_workers: {{ ansible_processor_core}} <---Ссылка на другую переменную, полученную в результате выполнения  gather_facts: True (сбор параметров с удалённого компа)
+
+Список переменных выглядит так:
+
+      redhat_packges:
+            - tree
+            - mc
+            - bin-utils
+
+
+Словарь:
+
+test_user:
+  - name: 'ptrov'
+    dest: '/home/petrov'
+  - name: 'Ivanov'
+    dest: '/home/ivanov'
+
+
+
+
+##      1.2. Playbooks
+
+Playbooks - Сценарии для достижения целевого состояния системы с использованием модулей Ansible.
+
+- Установка и настройка ПО
+- Деплой
+- Управление внешними сервисами
+
+
+
+
+
+##        1.2.3 Roles
+
+Role - это директория с определенной структурой и файлами внутри нее.
+
+Роль состоит из:
+* Таксов и хендлеров
+* Переменных
+* Метаданных
+* Тестов
+* Вспомогательных файлов
+* Шаблонов
+
+Инициализировать древо каталогов можно одной командой:
+
+        $ ansible-galaxy init mysql-role
+
+Структура каталга роли:
+
+            defaults/  <----                 Дефолтные переменные
+            files/     <----           Вспомогательные файлы
+            handlers/  <----         Обработчики
+            meta/      <----        Метаданные
+            tasks/     <----          Таски
+            templates/ <----            Шаблоны
+            test/      <----              Данные для тестов
+            vars/      <----                Переменные с более высоким приоритетом, чем defaults
+
+
+
+Ansible. Requirements.yml
+Зависимости необходимые вашей роли или всему репозиторию:
+
+[root@ansible ~]$ ansible-galaxy install -r requirements.yml     <---- Скачается роль (role_name), той версии (version 1.1.2)  которая указана в файле. Вариант версионирования ролей. Скачиваться буде в каталог, если указан в файле ansible.cfg "roles_path = ./roles", иначе по дефолтному пути в домашний каталог.
+
+    -src: http://github.com/blablabla/role_name
+     version 1.1.2
+
+###       1.2.3.1 Tags
+
 -   **Tags**  - Позволяют запустить (или исключить запуск) часть конфигурации без необходимости запуска всего playbook.   Тегировать можно как plays так и tasks. Для каждого элемента может бытьболее одной метки.
 
     **Пример:**
 
-        _Задача по установке nginx, тегируем двумя метками nginx-package и packages**_
+        Задача по установке nginx, тегируем двумя метками: nginx-package и packages
 
         -  name: Install packages nginx
         yum:
@@ -292,7 +468,7 @@ ___
             - nginx-package
             - packages
 
-    _$ ansible-playbook prod-server.yml --tags "nginx-package" <--- Запускаем выполнение задачи тегированной тегом "nginx-package", будет выполнена только эта задача. Если несколько задач затегированны одним тегом, то они все будут выполнены_
+        $ ansible-playbook prod-server.yml --tags "nginx-package" <--- Запускаем выполнение задачи тегированной тегом "nginx-package", будет выполнена только эта задача. Если несколько задач затегированны одним тегом, то они все будут выполнены
 
     **Пример:**
 
@@ -312,14 +488,47 @@ ___
                 - nginx-package
                 - packages     <---- Тег для задачи Install packages nginx
 
-   _Просмотр существующих тегов.Прокажет все задачи (Tasks) и теги для каждой задачи_
+  Просмотр существующих тегов.Прокажет все задачи (Tasks) и теги для каждой задачи
 
    **Пример:**
 
           ansible-playbook prod-server.yml --list-tasks
 
 
-##    .1 Программы для управления и запуска ansible
+###       1.2.3.1 Handlers
+
+- Handlers (обработчики) - это специальные задачи. Они вызываются из других задач ключевым словом notify. Эти задачи срабатывают после выполнения  всех   задач в сценарии (play). При этом, если несколько задач вызвали одну и ту же задачу через notify, **она выполнится только один раз**.
+Handlers описываются в своем подразделе playbook - handlers, так же, как изадачи. Для них используется такой же синтаксис, как и для задач. В основном используются для перезапуска рестатра сервиса через systemd
+
+Принудительное выполнение хендлера возможно при помощи модуля:
+
+    meta: flush_handlers
+
+Пример Handler:
+
+          handlers:
+            - name: reload service    <---- Имя Handlers
+              systemd:
+                name: nginx
+                state: reload
+          task:
+            - name: Test task
+                template:
+                  src: blablabla
+                  dst: blablabla
+              notify:
+                - reload service      <---- Должно совпадать с именем handlers
+
+
+#         1.3 Команды выполнения в tasks
+
+
+##        1.3.1 Циклы
+
+
+
+
+##    1.4. Программы для управления и запуска ansible
 
 <details>
              <summary>Команды просмотра и управления inventory</summary>
@@ -370,8 +579,9 @@ ___
 
 ___
 
+AD-HOC
 
- Пример запуска в ansible команды на удалённых компах, с использованием модуля -m command  в однострочном варианте (Ad-hoc):
+Пример запуска в ansible команды на удалённых компах, с использованием модуля -m command  в однострочном варианте (Ad-hoc):
 
 *  [andrey@SrvHomeAMD repo_1_nginx]$ ansible all -i inventory/ansible/ -m command -a "uname -r"
 

@@ -10,8 +10,9 @@ Vagrant.configure(2) do |config|
                     v.memory = 256
                     v.cpus = 1
                 end
-                prod.vm.provision "ansible" do |ansible|
+                prod.vm.provision ":ansible_local" do |ansible|
                   ansible.verbose = "vv"
+                  ansible.install = "true"
                   ansible.limit = "all"
                   ansible.inventory_path = "./ansible/inventory/"
                   ansible.playbook = "prod-server.yml"

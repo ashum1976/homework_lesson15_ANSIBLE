@@ -4,71 +4,70 @@
   vars:
     nginx_listen_port: 8080
     nginx_user: nginx
-
   gather_facts: True
 
   tasks:
-    # - name: Test prod_server
-    #   ping:
-    - name: Install repository
-      yum:
-          name: epel-release
-          state: present
-      tags:
-          - epel-package
-          - packages
-
-    - name: Install packages nginx
-      yum:
-          name: nginx
-          state: present
-      tags:
-          - nginx-package
-          - packages
-
-    - name: Enable and started nginx_port
-      systemd:
-          name: nginx
-          state: started
-          enabled: True
-
-    - name: Nginx copy conf files
-      template:
-          src: ansible/templates/nginx.conf.j2
-          dest: /etc/nginx/nginx.conf
-          mode: 0600
-          owner: root
-          group: root
-      register: nginx_config_copy
-      tags: cp_nginx_cfg
-
-    - name: View nginx_config_copy all value
-      debug:
-          var:  nginx_config_copy
-
-    - name: Check nginx configure
-      shell: nginx -t
-      register: nginx_config_check
-      #failed_when:  "'FAILED' nginx_config_check.stderr"
-
-    - name: View nginx_config_check all value
-      debug:
-          var:  nginx_config_check.rc
-
-    - name: Reload nginx when rc == 0
-      systemd:
-          name: nginx
-          state: reloaded
-      when:
-          - nginx_config_check.rc == 0
-          - nginx_config_copy.changed == true
-
-    - name: Print msg
-      debug:
-          msg:  Restart nginx success
-      when:
-          - nginx_config_check.rc == 0
-          - nginx_config_copy.changed == true
+    - name: Test prod_server
+      ping:
+    # - name: Install repository
+    #   yum:
+    #       name: epel-release
+    #       state: present
+    #   tags:
+    #       - epel-package
+    #       - packages
+    #
+    # - name: Install packages nginx
+    #   yum:
+    #       name: nginx
+    #       state: present
+    #   tags:
+    #       - nginx-package
+    #       - packages
+    #
+    # - name: Enable and started nginx_port
+    #   systemd:
+    #       name: nginx
+    #       state: started
+    #       enabled: True
+    #
+    # - name: Nginx copy conf files
+    #   template:
+    #       src: ansible/templates/nginx.conf.j2
+    #       dest: /etc/nginx/nginx.conf
+    #       mode: 0600
+    #       owner: root
+    #       group: root
+    #   register: nginx_config_copy
+    #   tags: cp_nginx_cfg
+    #
+    # - name: View nginx_config_copy all value
+    #   debug:
+    #       var:  nginx_config_copy
+    #
+    # - name: Check nginx configure
+    #   shell: nginx -t
+    #   register: nginx_config_check
+    #   #failed_when:  "'FAILED' nginx_config_check.stderr"
+    #
+    # - name: View nginx_config_check all value
+    #   debug:
+    #       var:  nginx_config_check.rc
+    #
+    # - name: Reload nginx when rc == 0
+    #   systemd:
+    #       name: nginx
+    #       state: reloaded
+    #   when:
+    #       - nginx_config_check.rc == 0
+    #       - nginx_config_copy.changed == true
+    #
+    # - name: Print msg
+    #   debug:
+    #       msg:  Restart nginx success
+    #   when:
+    #       - nginx_config_check.rc == 0
+    #       - nginx_config_copy.changed == true
   # handlers:
   #   - name: restart nginx
   #     systemd:

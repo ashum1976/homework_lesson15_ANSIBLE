@@ -1,0 +1,12 @@
+all:
+  children:
+      dev:
+      test:
+  vars:
+    ansible_user:   'vagrant'
+    ansible_host: 127.0.0.1
+dev:
+  hosts:
+    prod-server:
+      ansible_port: 2222
+      ansible_private_key_file: .vagrant/machines/prod_server/virtualbox/private_key

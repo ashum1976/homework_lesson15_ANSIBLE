@@ -1,0 +1,222 @@
+2021-04-01 08:20:10,249 p=1703558 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2222}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/prod_server/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |--@prod:
+  |  |--adm_comp
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2200}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/adm_comp/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |  |  |--{test_host_var = test_plugins}
+  |  |  |--{test_var = test_var_group}
+  |  |--{test_var = test_var_group}
+  |--@test:
+  |--@ungrouped:
+  |--{ansible_host = 127.0.0.1}
+  |--{ansible_user = vagrant}
+2021-04-01 08:25:57,674 p=1705457 u=andrey n=ansible | [WARNING]: Found both group and host with same name: test
+
+2021-04-01 08:25:57,689 p=1705457 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2222}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/prod_server/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |--@prod:
+  |  |--adm_comp
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2200}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/adm_comp/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |  |  |--{test_host_var = test_plugins}
+  |  |  |--{test_var = test_var_group}
+  |  |--{test_var = test_var_group}
+  |--@test:
+  |--@ungrouped:
+  |  |--@test:
+  |--{ansible_host = 127.0.0.1}
+  |--{ansible_user = vagrant}
+2021-04-01 08:26:43,988 p=1705710 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2222}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/prod_server/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |--@prod:
+  |  |--adm_comp
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2200}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/adm_comp/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |  |  |--{test_host_var = test_plugins}
+  |  |  |--{test_var = test_var_group}
+  |  |--{test_var = test_var_group}
+  |--@test:
+  |--@ungrouped:
+  |  |--nix64amd
+  |  |  |--{ansible_host = 172.16.3.1}
+  |  |  |--{ansible_port = 3444}
+  |  |  |--{ansible_user = vagrant}
+  |--{ansible_host = 127.0.0.1}
+  |--{ansible_user = vagrant}
+2021-04-01 08:32:53,296 p=1707915 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2222}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/prod_server/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |--@prod:
+  |  |--adm_comp
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2200}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/adm_comp/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |  |  |--{test_host_var = test_plugins}
+  |  |  |--{test_var = test_var_group}
+  |  |--{test_var = test_var_group}
+  |--@test:
+  |--@ungrouped:
+  |  |--nix64AMD
+  |  |  |--{ansible_host = 172.16.3.1}
+  |  |  |--{ansible_port = 3444}
+  |  |  |--{ansible_user = vagrant}
+  |--{ansible_host = 127.0.0.1}
+  |--{ansible_user = vagrant}
+2021-04-01 08:39:40,573 p=1710815 u=andrey n=ansible | [WARNING]: Skipping unexpected key (nix64AMD) in group (hosts), only "vars", "children" and "hosts" are valid
+
+2021-04-01 08:39:40,592 p=1710815 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2222}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/prod_server/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |--@hosts:
+  |--@prod:
+  |  |--adm_comp
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2200}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/adm_comp/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |  |  |--{test_host_var = test_plugins}
+  |  |  |--{test_var = test_var_group}
+  |  |--{test_var = test_var_group}
+  |--@test:
+  |--@ungrouped:
+  |--{ansible_host = 127.0.0.1}
+  |--{ansible_user = vagrant}
+2021-04-01 08:40:26,514 p=1711071 u=andrey n=ansible | [WARNING]: Skipping unexpected key (nix64AMD) in group (hosts), only "vars", "children" and "hosts" are valid
+
+2021-04-01 08:40:26,535 p=1711071 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2222}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/prod_server/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |--@hosts:
+  |--@prod:
+  |  |--adm_comp
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2200}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/adm_comp/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |  |  |--{test_host_var = test_plugins}
+  |  |  |--{test_var = test_var_group}
+  |  |--{test_var = test_var_group}
+  |--@test:
+  |--@ungrouped:
+  |--{ansible_host = 127.0.0.1}
+  |--{ansible_user = vagrant}
+2021-04-01 08:41:01,188 p=1711255 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2222}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/prod_server/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |--@prod:
+  |  |--adm_comp
+  |  |  |--{ansible_host = 127.0.0.1}
+  |  |  |--{ansible_port = 2200}
+  |  |  |--{ansible_private_key_file = .vagrant/machines/adm_comp/virtualbox/private_key}
+  |  |  |--{ansible_user = vagrant}
+  |  |  |--{test_host_var = test_plugins}
+  |  |  |--{test_var = test_var_group}
+  |  |--{test_var = test_var_group}
+  |--@test:
+  |--@ungrouped:
+  |  |--nix64AMD
+  |  |  |--{ansible_host = 172.16.3.1}
+  |  |  |--{ansible_port = 3444}
+  |  |  |--{ansible_user = vagrant}
+  |--{ansible_host = 127.0.0.1}
+  |--{ansible_user = vagrant}
+2021-04-01 08:42:29,011 p=1711736 u=andrey n=ansible | ERROR! Pattern must be valid group name when using --graph
+2021-04-01 08:42:58,897 p=1711887 u=andrey n=ansible | ERROR! Conflicting options used, only one of --host, --graph or --list can be used at the same time.
+2021-04-01 08:43:08,420 p=1711940 u=andrey n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: nix64amd
+
+2021-04-01 08:43:08,424 p=1711940 u=andrey n=ansible | ERROR! You must pass a single valid host to --host parameter
+2021-04-01 08:43:30,491 p=1712071 u=andrey n=ansible | {
+    "ansible_host": "172.16.3.1",
+    "ansible_port": 3444,
+    "ansible_user": "vagrant"
+}
+2021-04-01 08:44:47,224 p=1712503 u=andrey n=ansible | {
+    "adm_user": "andrey",
+    "ansible_host": "172.16.3.1",
+    "ansible_port": 3444,
+    "ansible_user": "vagrant"
+}
+2021-04-01 08:55:38,719 p=1717564 u=andrey n=ansible | ERROR! Conflicting options used, only one of --host, --graph or --list can be used at the same time.
+2021-04-01 08:57:00,837 p=1717992 u=andrey n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: nix64amd
+
+2021-04-01 08:57:00,841 p=1717992 u=andrey n=ansible | ERROR! You must pass a single valid host to --host parameter
+2021-04-01 08:57:13,817 p=1718076 u=andrey n=ansible | ERROR! The python "toml" library is required when using the TOML output format
+2021-04-01 08:57:20,278 p=1718113 u=andrey n=ansible | ERROR! The python "toml" library is required when using the TOML output format
+2021-04-01 16:59:45,344 p=1903295 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
+2021-04-01 16:59:45,478 p=1903295 u=andrey n=ansible | TASK [Gathering Facts] **************************************************************************************************************************************
+2021-04-01 16:59:45,597 p=1903295 u=andrey n=ansible | fatal: [prod-server]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2222: Connection refused", "unreachable": true}
+2021-04-01 16:59:45,598 p=1903295 u=andrey n=ansible | fatal: [prod-comp]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2222: Connection refused", "unreachable": true}
+2021-04-01 16:59:45,600 p=1903295 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
+2021-04-01 16:59:45,600 p=1903295 u=andrey n=ansible | prod-comp                  : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 16:59:45,600 p=1903295 u=andrey n=ansible | prod-server                : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 17:01:37,518 p=1903955 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
+2021-04-01 17:01:37,531 p=1903955 u=andrey n=ansible | TASK [Gathering Facts] **************************************************************************************************************************************
+2021-04-01 17:01:37,567 p=1903955 u=andrey n=ansible | fatal: [prod-server]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2222: Connection refused", "unreachable": true}
+2021-04-01 17:01:37,568 p=1903955 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
+2021-04-01 17:01:37,569 p=1903955 u=andrey n=ansible | prod-server                : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 17:03:15,838 p=1904520 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
+2021-04-01 17:03:15,852 p=1904520 u=andrey n=ansible | TASK [Gathering Facts] **************************************************************************************************************************************
+2021-04-01 17:03:15,899 p=1904520 u=andrey n=ansible | fatal: [prod-server]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2222: Connection refused", "unreachable": true}
+2021-04-01 17:03:15,900 p=1904520 u=andrey n=ansible | fatal: [adm_comp]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2200: Connection refused", "unreachable": true}
+2021-04-01 17:03:15,901 p=1904520 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
+2021-04-01 17:03:15,901 p=1904520 u=andrey n=ansible | adm_comp                   : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 17:03:15,901 p=1904520 u=andrey n=ansible | prod-server                : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 17:04:19,433 p=1905146 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
+2021-04-01 17:04:19,449 p=1905146 u=andrey n=ansible | TASK [Gathering Facts] **************************************************************************************************************************************
+2021-04-01 17:04:19,484 p=1905146 u=andrey n=ansible | fatal: [prod-server]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2222: Connection refused", "unreachable": true}
+2021-04-01 17:04:19,486 p=1905146 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
+2021-04-01 17:04:19,486 p=1905146 u=andrey n=ansible | prod-server                : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 17:05:29,332 p=1905558 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
+2021-04-01 17:05:29,344 p=1905558 u=andrey n=ansible | TASK [Gathering Facts] **************************************************************************************************************************************
+2021-04-01 17:05:29,379 p=1905558 u=andrey n=ansible | fatal: [prod-server]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2222: Connection refused", "unreachable": true}
+2021-04-01 17:05:29,381 p=1905558 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
+2021-04-01 17:05:29,381 p=1905558 u=andrey n=ansible | prod-server                : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 17:05:56,886 p=1905716 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
+2021-04-01 17:05:56,901 p=1905716 u=andrey n=ansible | TASK [Gathering Facts] **************************************************************************************************************************************
+2021-04-01 17:05:56,934 p=1905716 u=andrey n=ansible | fatal: [prod-server]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 2222: Connection refused", "unreachable": true}
+2021-04-01 17:05:56,936 p=1905716 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
+2021-04-01 17:05:56,936 p=1905716 u=andrey n=ansible | prod-server                : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2021-04-01 17:06:09,854 p=1905850 u=andrey n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: dev
+
+2021-04-01 17:06:09,855 p=1905850 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
+2021-04-01 17:06:09,855 p=1905850 u=andrey n=ansible | skipping: no hosts matched
+2021-04-01 17:06:09,855 p=1905850 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
