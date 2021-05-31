@@ -33,5 +33,5 @@
     # - name: Nginx conf files
     #   template:
     #       src: ../templates/ngin.conf.j2
-    #       dst: /etc/nginx/nginx.conf
+    #       dest: /etc/nginx/nginx.conf
     #       mode: 0600

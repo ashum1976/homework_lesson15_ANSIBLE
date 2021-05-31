@@ -220,3 +220,12 @@
 2021-04-01 17:06:09,855 p=1905850 u=andrey n=ansible | PLAY [Install nginx on hosts "prod-server"] *****************************************************************************************************************
 2021-04-01 17:06:09,855 p=1905850 u=andrey n=ansible | skipping: no hosts matched
 2021-04-01 17:06:09,855 p=1905850 u=andrey n=ansible | PLAY RECAP **************************************************************************************************************************************************
+2021-04-30 23:59:13,404 p=28016 u=andrey n=ansible | ERROR! No action selected, at least one of --host, --graph or --list needs to be specified.
+2021-04-30 23:59:26,971 p=28024 u=andrey n=ansible | @all:
+  |--@dev:
+  |  |--prod-server
+  |--@prod:
+  |  |--adm_comp
+  |--@test:
+  |--@ungrouped:
+  |  |--nix64AMD
